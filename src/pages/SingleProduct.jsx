@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetSingleProductQuery } from "../features/products/productApi";
 import { FaStar } from "react-icons/fa";
+import Reviews from "../components/Reviews";
 
 const SingleProduct = () => {
   const params = useParams();
@@ -26,12 +27,7 @@ const SingleProduct = () => {
           <button className="btn btn-warning mt-12">Add to cart</button>
         </div>
       </div>
-      <div>
-        <h2 className="text-2xl font-semibold my-2">Review</h2>
-        {data?.comments.map((comn, i) => (
-          <div key={i}> {comn}</div>
-        ))}
-      </div>
+      <div>{data?.comments.length > 1 && <Reviews review={data.comments} />}</div>
     </div>
   );
 };

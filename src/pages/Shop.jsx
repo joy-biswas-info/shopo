@@ -10,16 +10,25 @@ const Shop = () => {
   const handleSlider = (value) => {
     dispatch(setPriceRange(value));
   };
-  const { status, priceRange } = useSelector((state) => state.product);
-  let productsData;
-  if (status) {
-    productsData = data?.data.filter((item) => item.status === true && item.price < priceRange);
-  } else if (priceRange > 0) {
-    productsData = data?.data.filter((item) => item.price < priceRange);
-  } else {
-    productsData = data;
-  }
 
+  const { status, priceRange, searchTerm } = useSelector((state) => state.product);
+  let productsData;
+  console.log(priceRange);
+  // Apply filters
+  productsData = data?.data.filter((item) => {
+    // Apply search filter if searchTerm is not empty
+    const matchSearch =
+      searchTerm !== "" ? item.name.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+
+    // Apply status filter if status is true
+    const matchStatus = !status || (status && item.status === true);
+
+    // Apply priceRange filter if priceRange is greater than 0
+    const matchPrice = priceRange > 1 ? item.price < priceRange : true;
+
+    // Return true if all conditions are met
+    return matchSearch && matchStatus && matchPrice;
+  });
   const [showToast, setShowToast] = useState(false);
 
   const addToCart = () => {
@@ -46,21 +55,24 @@ const Shop = () => {
             <h4>Price range</h4>
             <input
               type="range"
-              min="0"
+              min="10"
               max="150"
               step={1}
               className="range range-warning"
               onChange={(event) => handleSlider(event.target.value)}
             />
           </div>
-          <div>
-            <h4>Product category</h4>
-          </div>
         </div>
         <div className="grid grid-cols-4 col-span-10 gap-4">
-          {productsData?.map((item) => (
-            <ProductCard key={item._id} product={item} toast={addToCart} />
-          ))}
+          {productsData?.length > 0 ? (
+            <>
+              {productsData?.map((item) => (
+                <ProductCard key={item._id} product={item} toast={addToCart} />
+              ))}
+            </>
+          ) : (
+            <>No product on your search</>
+          )}
         </div>
       </div>
       <div className="toast" style={showToast ? { display: "block" } : { display: "none" }}>
