@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import { useGetProductsQuery } from "../features/products/productApi";
 import { setPriceRange, toggleState } from "../features/products/productSlice";
+import { useState } from "react";
 
 const Shop = () => {
   const dispatch = useDispatch();
   const { data } = useGetProductsQuery(undefined);
-
   const handleSlider = (value) => {
     dispatch(setPriceRange(value));
   };
@@ -19,6 +19,15 @@ const Shop = () => {
   } else {
     productsData = data;
   }
+
+  const [showToast, setShowToast] = useState(false);
+
+  const addToCart = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 1000);
+  };
 
   return (
     <div>
@@ -50,8 +59,13 @@ const Shop = () => {
         </div>
         <div className="grid grid-cols-4 col-span-10 gap-4">
           {productsData?.map((item) => (
-            <ProductCard key={item._id} product={item} />
+            <ProductCard key={item._id} product={item} toast={addToCart} />
           ))}
+        </div>
+      </div>
+      <div className="toast" style={showToast ? { display: "block" } : { display: "none" }}>
+        <div className="alert alert-warning">
+          <span>Added to cart</span>
         </div>
       </div>
     </div>
