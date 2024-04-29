@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaEye, FaGoogle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { createUser } from "../features/user/userSlice";
+import { createUser, userSigninWithGoogle } from "../features/user/userSlice";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +30,10 @@ const SignUp = () => {
       }
     }
   }, [user.email, isLoading]);
+
+  const handleGoogleSignIn = () => {
+    dispatch(userSigninWithGoogle());
+  };
 
   return (
     <section>
@@ -105,7 +109,7 @@ const SignUp = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
               >
                 Create an account
               </button>
@@ -121,9 +125,12 @@ const SignUp = () => {
               Login
             </Link>
           </p>
-          <button className="text-center bg-yellow-500 w-full my-8 py-1 rounded-md flex items-center justify-center gap-1 font-semibold">
+          <Link
+            className="text-center bg-yellow-500 w-full my-8 py-1 rounded-md flex items-center justify-center gap-1 font-semibold"
+            onClick={() => handleGoogleSignIn()}
+          >
             Continue with Google <FaGoogle />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

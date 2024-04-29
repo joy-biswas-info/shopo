@@ -1,14 +1,20 @@
 /* eslint-disable react/prop-types */
 import { FaStar } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 import { PropTypes } from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product, toast }) => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+    if (user.email) {
+      dispatch(addToCart(product));
+    } else {
+      navigate("/login");
+    }
     toast();
   };
   return (

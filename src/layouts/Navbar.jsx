@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { logOut } from "../features/user/userSlice";
 
 const Navbar = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user, isLoading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
@@ -13,7 +13,7 @@ const Navbar = () => {
     <>
       <Link to={"/"}>Shop</Link>
       <Link to={"/contact"}>Contact</Link>
-      {!user.email ? (
+      {!user.email && !isLoading ? (
         <Link to={"/login"}>Login</Link>
       ) : (
         <button className="flex items-center gap-2" onClick={() => handleLogout()}>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { loginUser } from "../features/user/userSlice";
+import { loginUser, userSigninWithGoogle } from "../features/user/userSlice";
 import { FaEye, FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
@@ -27,7 +27,11 @@ const Login = () => {
       }
     }
   }, [user.email, isLoading]);
-  console.log(location);
+
+  const handleGoogleSignIn = () => {
+    dispatch(userSigninWithGoogle());
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -87,7 +91,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
             >
               Log in
             </button>
@@ -104,9 +108,12 @@ const Login = () => {
           </Link>
         </p>
 
-        <button className="text-center bg-yellow-500 w-full my-8 py-1 rounded-md flex items-center justify-center gap-1 font-semibold">
+        <Link
+          className="text-center bg-yellow-500 w-full my-8 py-1 rounded-md flex items-center justify-center gap-1 font-semibold"
+          onClick={() => handleGoogleSignIn()}
+        >
           Log in with Google <FaGoogle />
-        </button>
+        </Link>
       </div>
     </div>
   );
