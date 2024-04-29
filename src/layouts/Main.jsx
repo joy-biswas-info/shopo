@@ -23,7 +23,7 @@ const Main = () => {
     );
     setFilteredData(filteredProducts);
   };
-  console.log("filter", filteredData);
+
   return (
     <div className=" container-fluid w-full">
       <header className="container-fluid  mx-auto">

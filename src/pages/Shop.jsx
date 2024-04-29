@@ -6,26 +6,20 @@ import { useState } from "react";
 
 const Shop = () => {
   const dispatch = useDispatch();
-  const { data } = useGetProductsQuery(undefined);
+  const { data, isLoading } = useGetProductsQuery(undefined);
   const handleSlider = (value) => {
     dispatch(setPriceRange(value));
   };
 
   const { stock, priceRange, searchTerm } = useSelector((state) => state.product);
   let productsData;
+
   // Apply filters
   productsData = data?.data.filter((item) => {
-    // Apply search filter if searchTerm is not empty
     const matchSearch =
       searchTerm !== "" ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
-
-    // Apply status filter if status is true
     const matchStatus = !stock || (stock && item.stock > 0);
-
-    // Apply priceRange filter if priceRange is greater than 0
     const matchPrice = priceRange > 1 ? item.price < priceRange : true;
-
-    // Return true if all conditions are met
     return matchSearch && matchStatus && matchPrice;
   });
   const [showToast, setShowToast] = useState(false);
@@ -62,15 +56,42 @@ const Shop = () => {
             />
           </div>
         </div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 md:col-span-10 gap-8">
-          {productsData?.length > 0 ? (
+          {productsData?.length < 1 && <p>Nothing on search</p>}
+          {!isLoading ? (
             <>
               {productsData?.map((item) => (
                 <ProductCard key={item._id} product={item} toast={addToCart} />
               ))}
             </>
           ) : (
-            <>No product on your search</>
+            <div className="space-x-6 flex">
+              <div className="flex flex-col gap-4 w-96">
+                <div className="skeleton h-32 w-full"></div>
+                <div className="skeleton h-4 w-48"></div>
+                <div className="skeleton h-4 w-full"></div>
+                <div className="skeleton h-4 w-full"></div>
+              </div>
+              <div className="flex flex-col gap-4 w-96">
+                <div className="skeleton h-32 w-full"></div>
+                <div className="skeleton h-4 w-48"></div>
+                <div className="skeleton h-4 w-full"></div>
+                <div className="skeleton h-4 w-full"></div>
+              </div>
+              <div className="flex flex-col gap-4 w-96">
+                <div className="skeleton h-32 w-full"></div>
+                <div className="skeleton h-4 w-48"></div>
+                <div className="skeleton h-4 w-full"></div>
+                <div className="skeleton h-4 w-full"></div>
+              </div>
+              <div className="flex flex-col gap-4 w-96">
+                <div className="skeleton h-32 w-full"></div>
+                <div className="skeleton h-4 w-48"></div>
+                <div className="skeleton h-4 w-full"></div>
+                <div className="skeleton h-4 w-full"></div>
+              </div>
+            </div>
           )}
         </div>
       </div>
