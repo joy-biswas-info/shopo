@@ -10,12 +10,22 @@
 
 ### Features
 
-• Developed an e-commerce website using React.js and Redux for state management.
+> Developed an e-commerce website using React.js and Redux for state management.
 
-• Implemented user authentication, product browsing, and cart functionality.
+> Implemented user authentication, product browsing, and cart functionality.
 
-• Utilized HTML/CSS for responsive design and styled-components for component styling.
+> Utilized Tailwind Css for responsive design .
 
 ### Live Site
 
 [shopo-plum.vercel.app ](https://shopo-plum.vercel.app/)
+
+### Technology used
+
+> Redux toolkit
+
+> Firebase React
+
+> router dom Tailwind CSS
+
+> React Icons

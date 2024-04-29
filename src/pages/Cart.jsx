@@ -4,7 +4,7 @@ import { addToCart, removeFromCart, removeOne } from "../features/cart/cartSlice
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { products } = useSelector((state) => state.cart);
+  const { products, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   return (
     <div className="space-y-5 min-h-[100vh]">
@@ -19,6 +19,7 @@ const Cart = () => {
       ) : (
         <div>
           <h2 className="text-center text-2xl font-semibold my-12">Cart</h2>
+          <h3 className="text-xl font-semibold my-8">Total : $ {total}</h3>
           {products?.map((product) => (
             <div key={product.title}>
               <div className="border h-44 p-5 flex justify-between rounded-md">
