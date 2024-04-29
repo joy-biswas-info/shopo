@@ -12,16 +12,22 @@ const Cart = () => {
         <div className="flex flex-col items-center my-12">
           {" "}
           <h2 className="text-2xl font-semibold text-center">There is no products</h2>{" "}
-          <Link to={"/shop"}>Shop Now</Link>
+          <Link to={"/"} className="btn btn-warning my-8">
+            Shop Now
+          </Link>
         </div>
       ) : (
         <div>
           <h2 className="text-center text-2xl font-semibold my-12">Cart</h2>
           {products?.map((product) => (
-            <div key={product.name}>
+            <div key={product.title}>
               <div className="border h-44 p-5 flex justify-between rounded-md">
                 <div className="border-r pr-5 shrink-0">
-                  <img src={product?.image} alt="" className="h-full" />
+                  <img
+                    src={product?.thumbnail}
+                    alt=""
+                    className="h-full w-28 md:w-48 object-fit-cover "
+                  />
                 </div>
                 <div className="px-2 w-full flex flex-col gap-3">
                   <h1 className="text-2xl self-center">{product?.name}</h1>
@@ -55,6 +61,10 @@ const Cart = () => {
               </div>
             </div>
           ))}
+          <Link to={"/checkout"} className="mx-auto flex my-12">
+            {" "}
+            <button className="btn btn-warning items-center w-96 mx-auto">Checkout</button>
+          </Link>
         </div>
       )}
     </div>

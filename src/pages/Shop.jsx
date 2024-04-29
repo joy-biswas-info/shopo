@@ -11,17 +11,16 @@ const Shop = () => {
     dispatch(setPriceRange(value));
   };
 
-  const { status, priceRange, searchTerm } = useSelector((state) => state.product);
+  const { stock, priceRange, searchTerm } = useSelector((state) => state.product);
   let productsData;
-  console.log(priceRange);
   // Apply filters
   productsData = data?.data.filter((item) => {
     // Apply search filter if searchTerm is not empty
     const matchSearch =
-      searchTerm !== "" ? item.name.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+      searchTerm !== "" ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
 
     // Apply status filter if status is true
-    const matchStatus = !status || (status && item.status === true);
+    const matchStatus = !stock || (stock && item.stock > 0);
 
     // Apply priceRange filter if priceRange is greater than 0
     const matchPrice = priceRange > 1 ? item.price < priceRange : true;
@@ -41,8 +40,8 @@ const Shop = () => {
   return (
     <div>
       <h2 className="text-center text-3xl font-semibold my-12">Products </h2>
-      <div className="grid grid-flow-col grid-cols-12 space-x-4">
-        <div className="col-span-2 px-3 flex flex-col gap-4">
+      <div className="grid md:grid-flow-col md:grid-cols-12 space-x-4">
+        <div className="col-span-2 px-3 flex flex-col gap-4 my-6">
           <div>
             <h4>In stock</h4>
             <input
@@ -56,14 +55,14 @@ const Shop = () => {
             <input
               type="range"
               min="10"
-              max="150"
+              max="2000"
               step={1}
               className="range range-warning"
               onChange={(event) => handleSlider(event.target.value)}
             />
           </div>
         </div>
-        <div className="grid grid-cols-4 col-span-10 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 md:col-span-10 gap-8">
           {productsData?.length > 0 ? (
             <>
               {productsData?.map((item) => (

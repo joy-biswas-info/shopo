@@ -4,14 +4,17 @@ import Shop from "../pages/Shop";
 import Cart from "../pages/Cart";
 import SingleProduct from "../pages/SingleProduct";
 import SignUp from "../pages/SignUp";
+
+import Unauthenticated from "../layouts/Unauthenticated";
 import Login from "../pages/Login";
-import ErrorPage from "../pages/ErrorPage";
+import CheckOut from "../pages/CheckOut";
+import Contact from "../pages/Contact";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -22,15 +25,29 @@ const router = createBrowserRouter([
         element: <SingleProduct />,
       },
       {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
         path: "/cart",
         element: <Cart />,
       },
       {
-        path: "/signup",
+        path: "/checkout",
+        element: <CheckOut />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <Unauthenticated />,
+    children: [
+      {
+        path: "signup",
         element: <SignUp />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
     ],

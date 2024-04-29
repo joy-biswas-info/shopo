@@ -12,12 +12,12 @@ const ProductCard = ({ product, toast }) => {
     toast();
   };
   return (
-    <div className="rounded-xl flex flex-col items-start justify-between overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-2 ">
+    <div className="flex flex-col items-start justify-between overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-2 ">
       <div>
         <Link to={`/products/${product._id}`}>
-          <img src={product.image} alt="" className="" />
-          <div className="px-2">
-            <h2 className="font-semibold">{product.name}</h2>
+          <img src={product?.thumbnail} alt="" className="h-56 w-96 object-fit-cover" />
+          <div className="p-2 my-2">
+            <h2 className="font-semibold">{product.title}</h2>
             <div className="flex items-center gap-2">
               Rating: <FaStar className=" text-yellow-500"></FaStar> {product.rating}
             </div>
@@ -25,7 +25,7 @@ const ProductCard = ({ product, toast }) => {
           </div>
         </Link>
         <button
-          className="bg-yellow-500 p-2 mx-auto w-full"
+          className="bg-yellow-500 p-2 mx-auto w-full m-2 "
           onClick={() => handleAddToCart(product)}
         >
           Add to cart

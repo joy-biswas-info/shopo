@@ -21,7 +21,6 @@ export const loginUser = createAsyncThunk("user/loginUser", async ({ email, pass
 
 export const logOut = createAsyncThunk("user/logOut", async () => {
   signOut(auth).then(() => {
-    // Sign-out successful.
     console.log("Log Out");
   });
 });

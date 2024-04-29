@@ -4,7 +4,7 @@ const Navbar = () => {
   const navigationLink = (
     <>
       <Link to={"/"}>Shop</Link>
-      <Link to={"/"}>Contact</Link>
+      <Link to={"/contact"}>Contact</Link>
     </>
   );
 

@@ -1,18 +1,30 @@
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../features/user/userSlice";
 import { FaEye, FaGoogle } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const { user, isLoading } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target[0].value;
+    console.log(email);
     const password = e.target[1].value;
-    dispatch(loginUser(email, password));
+    dispatch(loginUser({ email: email, password: password }));
   };
+  useEffect(() => {
+    if (user.email && !isLoading) {
+      if (location?.state?.path) {
+        navigate(location.state.path);
+      } else {
+        navigate("/");
+      }
+    }
+  }, [user.email, isLoading]);
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -88,7 +100,8 @@ const Login = () => {
             Sign up
           </Link>
         </p>
-        <button className="text-center bg-yellow-500 w-full my-4 py-1 rounded-md flex items-center justify-center gap-1 font-semibold">
+
+        <button className="text-center bg-yellow-500 w-full my-8 py-1 rounded-md flex items-center justify-center gap-1 font-semibold">
           Log in with Google <FaGoogle />
         </button>
       </div>

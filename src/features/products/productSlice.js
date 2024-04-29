@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  status: false,
-  priceRange: 150,
+  stock: false,
+  priceRange: 15000,
   searchTerm: "",
 };
 
@@ -11,7 +11,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     toggleState: (state) => {
-      state.status = !state.status;
+      state.stock = !state.stock;
     },
     setPriceRange: (state, action) => {
       state.priceRange = action.payload;
