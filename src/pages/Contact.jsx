@@ -3,7 +3,7 @@ import { FaMapLocation } from "react-icons/fa6";
 
 const Contact = () => {
   return (
-    <section className="bg-white flex gap-28 mt-48">
+    <section className="bg-white flex gap-28 mt-48 md:mx-48">
       <div className=" flex flex-col gap-y-11 min-w-screen-md my-24">
         <div>
           <h2 className="font-2xl font-semibold text-2xl">Email</h2>
