@@ -2,10 +2,16 @@ import { useParams } from "react-router-dom";
 import { useGetSingleProductQuery } from "../features/products/productApi";
 import { FaStar } from "react-icons/fa";
 import Reviews from "../components/Reviews";
+import { addToCart } from "../features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 const SingleProduct = () => {
   const params = useParams();
   const { data } = useGetSingleProductQuery(params.id);
+  const dispatch = useDispatch();
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
   return (
     <div>
       <div className="grid grid-cols-12">
@@ -23,8 +29,9 @@ const SingleProduct = () => {
               {item}
             </p>
           ))}
-
-          <button className="btn btn-warning mt-12">Add to cart</button>
+          <button className="bg-yellow-500 p-2 mx-auto" onClick={() => handleAddToCart(data)}>
+            Add to cart
+          </button>{" "}
         </div>
       </div>
       <div>{data?.comments.length > 1 && <Reviews review={data.comments} />}</div>

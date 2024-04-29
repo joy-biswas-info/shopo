@@ -27,7 +27,7 @@ const Main = () => {
   return (
     <div className="">
       <header className=" container-fluid  mx-auto">
-        <div className="flex space-x-8 font-semibold text-xl py-2 px-48">
+        <div className="flex space-x-8 font-semibold py-2 px-48">
           <Link to={"/"}>Account</Link>
           <Link to={"/"}>Track Order</Link>
           <Link to={"/"}>Support</Link>
