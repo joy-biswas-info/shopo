@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../features/user/userSlice";
 import { FaEye, FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -8,14 +8,16 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.user);
+  const location = useLocation();
+
   const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target[0].value;
-    console.log(email);
     const password = e.target[1].value;
     dispatch(loginUser({ email: email, password: password }));
   };
+
   useEffect(() => {
     if (user.email && !isLoading) {
       if (location?.state?.path) {
@@ -25,6 +27,7 @@ const Login = () => {
       }
     }
   }, [user.email, isLoading]);
+  console.log(location);
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">

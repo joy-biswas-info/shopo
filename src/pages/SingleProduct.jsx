@@ -22,7 +22,7 @@ const SingleProduct = () => {
   };
 
   const { data: commentData, isLoading: productIsLoading } = useGetCommentQuery(params.id);
-  const [postComment, { isError, isLoading, isSuccess }] = usePostCommentMutation();
+  const [postComment] = usePostCommentMutation();
   const handleSubmit = (e) => {
     e.preventDefault();
     const options = {

@@ -9,6 +9,7 @@ import Unauthenticated from "../layouts/Unauthenticated";
 import Login from "../pages/Login";
 import CheckOut from "../pages/CheckOut";
 import Contact from "../pages/Contact";
+import { PrivetRoute } from "./PrivetRoutes";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <CheckOut />,
+        element: (
+          <PrivetRoute>
+            <CheckOut />
+          </PrivetRoute>
+        ),
       },
     ],
   },

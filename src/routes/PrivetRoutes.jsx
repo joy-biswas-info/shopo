@@ -1,14 +1,14 @@
 import { PropTypes } from "prop-types";
-import { useContext } from "react";
-import { AuthContext } from "../provider/AuthProvider";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const PrivetRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
-  if (user) {
+  const { user, isLoading } = useSelector((state) => state.user);
+  const { pathname } = useLocation();
+  if (user.email) {
     return children;
   }
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex flex-col gap-4 w-full h-[100vh]">
         <div className="skeleton h-[60%] w-full"></div>
@@ -18,7 +18,7 @@ export const PrivetRoute = ({ children }) => {
       </div>
     );
   }
-  return <Navigate to={"/login"}></Navigate>;
+  return <Navigate to={"/login"} state={{ path: pathname }}></Navigate>;
 };
 
 PrivetRoute.propTypes = { children: PropTypes.node };
